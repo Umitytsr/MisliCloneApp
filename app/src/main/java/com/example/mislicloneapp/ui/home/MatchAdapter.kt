@@ -8,11 +8,14 @@ import com.bumptech.glide.Glide
 import com.example.mislicloneapp.data.model.Data
 import com.example.mislicloneapp.databinding.ItemRowCountryBinding
 import com.example.mislicloneapp.ui.home.HomeFragmentDirections
+import com.example.mislicloneapp.ui.home.HomeFragmentViewModel
 import com.example.mislicloneapp.ui.home.MatchChildAdapter
 
 class MatchAdapter(
-    private var matchList: List<Data>
-    ) : RecyclerView.Adapter<MatchAdapter.MatchParentViewHolder>() {
+    private var matchList: List<Data>,
+    private val viewModel: HomeFragmentViewModel
+) : RecyclerView.Adapter<MatchAdapter.MatchParentViewHolder>() {
+
     private var matchesByLeague: Map<String, List<Data>> = groupMatchesByLeague(matchList)
 
     private fun groupMatchesByLeague(matchList: List<Data>): Map<String, List<Data>> {
@@ -21,7 +24,7 @@ class MatchAdapter(
 
     inner class MatchParentViewHolder(private val binding: ItemRowCountryBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(leagueName: String, matches: List<Data>) {
-            val _adapter = MatchChildAdapter(matches){matchDetailerModel ->
+            val _adapter = MatchChildAdapter(matches, viewModel){matchDetailerModel ->
                 val action = HomeFragmentDirections.actionHomeFragmentToMatchDetailerFragment(matchDetailerModel)
                 binding.root.findNavController().navigate(action)
             }

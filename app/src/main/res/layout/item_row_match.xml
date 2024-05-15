@@ -21,13 +21,16 @@
 
     <TextView
         android:id="@+id/homeTeamName"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
         android:layout_marginEnd="10dp"
+        android:gravity="end"
         android:text="Trabzonspor"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@id/matchTime"
         app:layout_constraintEnd_toStartOf="@id/matchScoreCardView"
+        app:layout_constraintStart_toEndOf="@+id/matchTime"
         app:layout_constraintTop_toTopOf="@id/matchTime" />
 
     <androidx.cardview.widget.CardView
@@ -54,12 +57,15 @@
 
     <TextView
         android:id="@+id/awayTeamName"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
+        android:layout_marginEnd="5dp"
+        android:gravity="start"
         android:text="Başakşehir"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@id/matchTime"
+        app:layout_constraintEnd_toStartOf="@id/halfTimeScore"
         app:layout_constraintStart_toEndOf="@id/matchScoreCardView"
         app:layout_constraintTop_toTopOf="@id/matchTime" />
 
@@ -67,9 +73,19 @@
         android:id="@+id/halfTimeScore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_margin="5dp"
         android:text="1 - 1"
         android:textSize="11sp"
+        app:layout_constraintBottom_toBottomOf="@id/matchTime"
+        app:layout_constraintEnd_toStartOf="@id/addFavorite"
+        app:layout_constraintTop_toTopOf="@id/matchTime" />
+
+    <CheckBox
+        android:id="@+id/addFavorite"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:background="@drawable/favorite_selector"
+        android:button="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="@id/matchTime"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/matchTime" />
