@@ -11,12 +11,14 @@ import com.example.mislicloneapp.databinding.ItemRowMatchBinding
 import com.example.mislicloneapp.domain.model.MatchDetailerModel
 import com.example.mislicloneapp.domain.toMatchDetailer
 import com.example.mislicloneapp.util.formatTime
+import kotlinx.coroutines.flow.collectLatest
 
 class MatchChildAdapter (
     private val organizedMatchList:List<Data>,
+    private val viewModel: HomeFragmentViewModel,
     private val onClick: (MatchDetailerModel) -> Unit
-
 ):RecyclerView.Adapter<MatchChildAdapter.ChildViewHolder>(){
+
     inner class ChildViewHolder(private val binding: ItemRowMatchBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(sc: Sc?, ht: Ht?, at: At?, data : Data) {
             val currentTimeMillis = System.currentTimeMillis()
@@ -38,6 +40,15 @@ class MatchChildAdapter (
                 awayTeamName.text = at?.sn ?: "Unknown Team"
                 matchCard.setOnClickListener {
                     onClick(data.toMatchDetailer())
+                }
+                addFavorite.setOnCheckedChangeListener { _, isChecked ->
+                    if (isChecked){
+                        viewModel.addToFavorites(data.toMatchDetailer())
+                        viewModel.getAllFavorites()
+                    }else{
+                        viewModel.deleteFromFavorites(data.toMatchDetailer())
+                        viewModel.getAllFavorites()
+                    }
                 }
             }
         }

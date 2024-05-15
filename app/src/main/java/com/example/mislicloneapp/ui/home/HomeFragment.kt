@@ -11,10 +11,12 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mislicloneapp.data.model.Data
 import com.example.mislicloneapp.databinding.FragmentHomeBinding
+import com.example.mislicloneapp.domain.model.MatchDetailerModel
 import com.example.mislicloneapp.util.Resource
 import com.google.android.material.chip.Chip
 import dagger.hilt.android.AndroidEntryPoint
@@ -44,13 +46,26 @@ class HomeFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
                 launch {
+                    viewModel.favoriteMatchResult.collectLatest { match ->
+                        if (match.isNotEmpty()){
+                            initFavoriteRecylerView(match)
+                        }else{
+                            with(binding){
+                                favorite.visibility = View.GONE
+                                favoriteCardView.visibility = View.GONE
+                            }
+                        }
+                    }
+                }
+                launch {
                     viewModel.matchResult.collectLatest { resource ->
                         when (resource){
                             is Resource.Loading -> {
 
                             }
                             is Resource.Success -> {
-                                initRecyclerView(resource.data)
+                                val allMatchList = resource.data
+                                initRecyclerView(allMatchList)
                             }
                             is Resource.Error -> {
                                 Toast.makeText(requireContext(),"We have a problem",Toast.LENGTH_SHORT).show()
@@ -63,12 +78,24 @@ class HomeFragment : Fragment() {
     }
 
     private fun initRecyclerView (matchList: List<Data>){
-        val _adapter = MatchAdapter(matchList)
+        val _adapter = MatchAdapter(matchList,viewModel)
         val _layoutManager = LinearLayoutManager(requireContext(),RecyclerView.VERTICAL,false)
         with(binding.matchRecylerView){
             adapter = _adapter
             layoutManager = _layoutManager
             setHasFixedSize(true)
+        }
+    }
+
+    private fun initFavoriteRecylerView(favoriteMatch: List<Data>){
+        val _adapter = MatchChildAdapter(favoriteMatch,viewModel){ favorite ->
+            val action = HomeFragmentDirections.actionHomeFragmentToMatchDetailerFragment(favorite)
+            findNavController().navigate(action)
+        }
+        val _layoutManager = LinearLayoutManager(requireContext(),RecyclerView.VERTICAL,false)
+        with(binding.favoriteRecyclerView){
+            adapter = _adapter
+            layoutManager = _layoutManager
         }
     }
 

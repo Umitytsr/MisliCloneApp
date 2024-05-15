@@ -1,8 +1,8 @@
-package com.example.mislicloneapp.data.source
+package com.example.mislicloneapp.data.source.remote
 
 import com.example.mislicloneapp.data.service.MisliApiService
 import javax.inject.Inject
 
-class MatchDataSource @Inject constructor(private val misliApiService: MisliApiService){
+class MatchRemoteDataSource @Inject constructor(private val misliApiService: MisliApiService){
     suspend fun getAllMatchesProperties() = misliApiService.getAllMatches()
 }
