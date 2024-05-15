@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgrounColor"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.detailer.MatchDetailerFragment">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:cardCornerRadius="20dp"
+        >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/matchTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textSize="25sp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:text="20:45" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/matchScoreCardView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/backgrounColor"
+                app:cardCornerRadius="8dp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@id/matchTime"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                >
+
+                <TextView
+                    android:id="@+id/matchScore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:text="1 - 1"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/homeTeamName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="@id/matchScoreCardView"
+                app:layout_constraintBottom_toBottomOf="@id/matchScoreCardView"
+                app:layout_constraintEnd_toStartOf="@id/matchScoreCardView"
+                android:layout_marginEnd="10dp"
+                android:textSize="16sp"
+                android:text="Trabzonspor"
+                android:textColor="@color/black"
+                />
+
+            <TextView
+                android:id="@+id/awayTeamName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="@id/matchScoreCardView"
+                app:layout_constraintBottom_toBottomOf="@id/matchScoreCardView"
+                app:layout_constraintStart_toEndOf="@id/matchScoreCardView"
+                android:layout_marginStart="10dp"
+                android:textSize="16sp"
+                android:text="Trabzonspor"
+                android:textColor="@color/black"
+                />
+
+            <TextView
+                android:id="@+id/halfTimeScore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/matchScoreCardView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="10dp"
+                android:textSize="14sp"
+                android:text="0 - 0"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>
